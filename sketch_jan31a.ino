@@ -1,24 +1,21 @@
-byte button = 8;
-byte light = 13;
-bool button_sist;
-bool flag;
-bool light_flag = 0;
+bool button;
+bool button_flag;
+bool light_flag;
+unsigned long last_pressed;
 void setup() {
-pinMode(button, INPUT_PULLUP);
-pinMode(light, OUTPUT);
-Serial.begin(9600);
+pinMode(8, INPUT_PULLUP);
+pinMode(13, OUTPUT);
 }
 
 void loop() {
-button_sist = !digitalRead(button);
-
-if (button_sist == true && flag == false){
-  flag = true;
+button = !digitalRead(8);
+if (button == true && button_flag == false && millis() - last_pressed > 50){
   light_flag = !light_flag;
-  digitalWrite(light, light_flag);
-  delay(50);
+  digitalWrite(13, light_flag);
+  button_flag = !button_flag;
+  last_pressed = millis();
 }
-if (button_sist == false && flag == true){
-  flag = false;
+if (button == false && button_flag == true){
+  button_flag = !button_flag;
 }
 }
