@@ -12,13 +12,13 @@ Serial.begin(9600);
 void loop() {
 button_sist = !digitalRead(button);
 
-if (button_sist == true and flag == false){
+if (button_sist == true && flag == false){
   flag = true;
   light_flag = !light_flag;
   digitalWrite(light, light_flag);
-delay(20);
+  delay(50);
 }
-if (button_sist == false and flag == true){
+if (button_sist == false && flag == true){
   flag = false;
 }
 }
