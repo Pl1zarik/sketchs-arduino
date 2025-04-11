@@ -1,0 +1,13 @@
+int val;
+int pwm;
+void setup() {
+Serial.begin(9600);
+}
+
+void loop() {
+val = analogRead(5);
+pwm = map(val, 0, 1023, 0, 255
+);
+analogWrite(6, pwm);
+Serial.println(pwm);
+}
