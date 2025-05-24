@@ -3,7 +3,6 @@
 #include <LiquidCrystal_I2C.h>  
 iarduino_DHT sensor(4);                                  
 LiquidCrystal_I2C lcd(0x27,16,2); 
-unsigned long start_time;
 void setup(){
 Serial.begin(9600);  
 lcd.init();                       
@@ -18,6 +17,11 @@ lcd.setCursor(0,1);
 lcd.print("Humidity:");
 }
 void loop(){
+info();
+
+}
+
+void info(){
 sensor.read();
 lcd.setCursor(12,0);
 lcd.print(int(sensor.tem));
