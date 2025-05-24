@@ -8,8 +8,11 @@ void setup(){
 Serial.begin(9600);  
 lcd.init();                       
 lcd.backlight(); 
-
-
+lcd.scrollDisplayRight();
+lcd.setCursor(5,0);
+lcd.print("hello");
+delay(5000);
+lcd.clear();
 lcd.print("Temperature:");
 lcd.setCursor(0,1);
 lcd.print("Humidity:");
