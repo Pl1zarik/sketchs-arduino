@@ -1,17 +1,13 @@
-#include "GyverEncoder.h"
 #include <Wire.h> 
 #include <iarduino_DHT.h>  
-#include <LiquidCrystal_I2C.h>  
+#include <LiquidCrystal_I2C.h>      
 
-iarduino_DHT sensor(4);    
-Encoder enc1(10, 11, 12);                              
+iarduino_DHT sensor(4);                          
 LiquidCrystal_I2C lcd(0x27,16,2); 
 int a = 0;
-int value = 0;
 void setup() {
   Serial.begin(9600);  
-  lcd.init();  
-  enc1.setType(TYPE2);                     
+  lcd.init();                     
   lcd.backlight();
   lcd.setCursor(5,0);
   lcd.print("hello");
@@ -20,12 +16,11 @@ void setup() {
 }
 
 void loop() {
+  enc1.tick();
   lcd.setCursor(0,0);
   // menu();
   sensor.read();
   info();
-  enc1.tick();
-  
 }
 
 void info() {
@@ -47,5 +42,4 @@ void menu() {
   lcd.print(" info");
   lcd.setCursor(0,1);
   lcd.print(" settings");
-
 }
