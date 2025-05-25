@@ -16,7 +16,6 @@ void setup() {
 }
 
 void loop() {
-  enc1.tick();
   lcd.setCursor(0,0);
   // menu();
   sensor.read();
