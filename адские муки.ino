@@ -1,12 +1,15 @@
 #include <Wire.h> 
 #include <iarduino_DHT.h>  
 #include <LiquidCrystal_I2C.h>      
-
+#include "GyverEncoder.h"
+Encoder enc(10, 11, 12);
+int value = 0;
 iarduino_DHT sensor(4);                          
 LiquidCrystal_I2C lcd(0x27,16,2); 
-int a = 0;
+unsigned long  lastLCDUpdate = 0;
 void setup() {
-  Serial.begin(9600);  
+  Serial.begin(9600); 
+  enc.setType(TYPE2); 
   lcd.init();                     
   lcd.backlight();
   lcd.setCursor(5,0);
@@ -16,10 +19,28 @@ void setup() {
 }
 
 void loop() {
+  enc.tick();
   lcd.setCursor(0,0);
-  // menu();
   sensor.read();
-  info();
+  encoder();
+  if (millis() - lastLCDUpdate > 100) {  // Обновляем LCD раз в 100 мс
+    // menu();
+    lastLCDUpdate = millis();
+  }
+
+}
+
+void menu() {
+  lcd.setCursor(0,0);
+  lcd.print(" info");
+  lcd.setCursor(0,1);
+  lcd.print(" settings");
+  // if (value <= 1){
+  //   lcd.setCursor(0,0);
+  //   lcd.write(126);
+  // }
+
+
 }
 
 void info() {
@@ -36,9 +57,12 @@ void info() {
   lcd.print("%   ");
 }
 
-void menu() {
-  lcd.setCursor(0,0);
-  lcd.print(" info");
-  lcd.setCursor(0,1);
-  lcd.print(" settings");
+
+int encoder(){
+  enc.tick();
+  if (enc.isRight()) value++;
+  if (enc.isLeft()) value--;
+  if (enc.isTurn()) {       
+    Serial.println(value);  
+  }  
 }
