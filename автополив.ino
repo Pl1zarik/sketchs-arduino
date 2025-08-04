@@ -1,8 +1,6 @@
 #define DRYSIL 700
 #define DRYSIGH 300
 #define Water 150
-int val;
-unsigned long now;
 void setup() {
 Serial.begin(9600);
 pinMode(3, OUTPUT);
@@ -20,7 +18,6 @@ if(analogRead(0) < DRYSIL){
   digitalWrite(2, HIGH);
 
 }
-// Serial.println(analogRead(0));
 delay(100);
 val = analogRead(0);
 Serial.println(analogRead(2));
